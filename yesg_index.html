@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>YESG Assignment</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}header{background:#fff;border-bottom:1px solid #e5e7eb;padding:18px 6%;display:flex;justify-content:space-between;align-items:center}.logo{font-size:24px;font-weight:700}.hero{padding:70px 6%;text-align:center;background:linear-gradient(135deg,#eef7ff,#fff)}h1{font-size:42px;margin:0 0 15px}.hero p{font-size:18px;color:#5b6475;max-width:700px;margin:0 auto 30px;line-height:1.6}.card{max-width:520px;margin:35px auto;background:#fff;padding:30px;border-radius:18px;box-shadow:0 8px 30px #0001}label{display:block;text-align:left;margin:14px 0 7px;font-weight:600}input,select{width:100%;padding:13px;border:1px solid #d8dde6;border-radius:9px;font-size:16px}.amount{font-size:30px;font-weight:700;margin:22px 0}button{width:100%;padding:14px;border:0;border-radius:9px;background:#16803c;color:#fff;font-size:17px;font-weight:700;cursor:pointer}.note{font-size:13px;color:#687386;margin-top:14px;line-height:1.5}footer{text-align:center;padding:30px;color:#6b7280}
+</style></head><body>
+<header><div class="logo">YESG Assignment</div><div>Online Services</div></header>
+<section class="hero"><h1>Welcome to YESG Assignment</h1><p>Apni service select kijiye aur online payment ke liye neeche diye gaye option ka use kijiye.</p>
+<div class="card"><h2>Online Payment</h2><label>Name</label><input id="name" placeholder="Apna naam likhiye"><label>Email</label><input id="email" type="email" placeholder="Email address"><label>Service</label><select id="service" onchange="updateAmount()"><option value="0">Service select kijiye</option><option value="499">Assignment Service - ₹499</option><option value="999">Premium Assignment Service - ₹999</option><option value="1499">Custom Service - ₹1,499</option></select><div class="amount" id="amount">₹0</div><button onclick="startPayment()">Pay Now</button><div class="note">Payment gateway ko production me activate karne ke liye Razorpay/other gateway account, KYC aur secure backend verification configure karna hoga. Secret API keys ko HTML me nahi rakhna hai.</div></div></section>
+<footer>© 2026 YESG Assignment. All rights reserved.</footer>
+<script>function updateAmount(){const a=Number(document.getElementById('service').value);document.getElementById('amount').textContent='₹'+a.toLocaleString('en-IN')}function startPayment(){const n=document.getElementById('name').value.trim(),e=document.getElementById('email').value.trim(),a=Number(document.getElementById('service').value);if(!n||!e||!a){alert('Please name, email aur service select kijiye.');return}alert('Payment button ready hai. Actual payment gateway ko next step me securely connect karna hoga. Selected amount: ₹'+a.toLocaleString('en-IN'))}</script>
+</body></html>
