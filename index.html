@@ -1,14 +1,847 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>YESG Assignment</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YESG Assignment | Online Business Services</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}header{background:#fff;border-bottom:1px solid #e5e7eb;padding:18px 6%;display:flex;justify-content:space-between;align-items:center}.logo{font-size:24px;font-weight:700}.hero{padding:70px 6%;text-align:center;background:linear-gradient(135deg,#eef7ff,#fff)}h1{font-size:42px;margin:0 0 15px}.hero p{font-size:18px;color:#5b6475;max-width:700px;margin:0 auto 30px;line-height:1.6}.card{max-width:520px;margin:35px auto;background:#fff;padding:30px;border-radius:18px;box-shadow:0 8px 30px #0001}label{display:block;text-align:left;margin:14px 0 7px;font-weight:600}input,select{width:100%;padding:13px;border:1px solid #d8dde6;border-radius:9px;font-size:16px}.amount{font-size:30px;font-weight:700;margin:22px 0}button{width:100%;padding:14px;border:0;border-radius:9px;background:#16803c;color:#fff;font-size:17px;font-weight:700;cursor:pointer}.note{font-size:13px;color:#687386;margin-top:14px;line-height:1.5}footer{text-align:center;padding:30px;color:#6b7280}
-</style></head><body>
-<header><div class="logo">YESG Assignment</div><div>Online Services</div></header>
-<section class="hero"><h1>Welcome to YESG Assignment</h1><p>Apni service select kijiye aur online payment ke liye neeche diye gaye option ka use kijiye.</p>
-<div class="card"><h2>Online Payment</h2><label>Name</label><input id="name" placeholder="Apna naam likhiye"><label>Email</label><input id="email" type="email" placeholder="Email address"><label>Service</label><select id="service" onchange="updateAmount()"><option value="0">Service select kijiye</option><option value="499">Assignment Service - ₹499</option><option value="999">Premium Assignment Service - ₹999</option><option value="1499">Custom Service - ₹1,499</option></select><div class="amount" id="amount">₹0</div><button onclick="startPayment()">Pay Now</button><div class="note">Payment gateway ko production me activate karne ke liye Razorpay/other gateway account, KYC aur secure backend verification configure karna hoga. Secret API keys ko HTML me nahi rakhna hai.</div></div></section>
-<footer>© 2026 YESG Assignment. All rights reserved.</footer>
-<script>function updateAmount(){const a=Number(document.getElementById('service').value);document.getElementById('amount').textContent='₹'+a.toLocaleString('en-IN')}function startPayment(){const n=document.getElementById('name').value.trim(),e=document.getElementById('email').value.trim(),a=Number(document.getElementById('service').value);if(!n||!e||!a){alert('Please name, email aur service select kijiye.');return}alert('Payment button ready hai. Actual payment gateway ko next step me securely connect karna hoga. Selected amount: ₹'+a.toLocaleString('en-IN'))}</script>
-</body></html>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:#f4f8fc;
+  color:#172033;
+  line-height:1.6;
+}
+
+header{
+  background:#ffffff;
+  border-bottom:1px solid #e5e7eb;
+  padding:16px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+  color:#092c61;
+}
+
+.logo span{
+  color:#16a34a;
+}
+
+nav a{
+  text-decoration:none;
+  color:#172033;
+  margin-left:22px;
+  font-weight:600;
+}
+
+.hero{
+  background:linear-gradient(135deg,#eaf5ff,#ffffff);
+  text-align:center;
+  padding:75px 20px;
+}
+
+.hero h1{
+  font-size:45px;
+  color:#092c61;
+  margin-bottom:15px;
+}
+
+.hero p{
+  max-width:750px;
+  margin:auto;
+  font-size:18px;
+  color:#526174;
+}
+
+.hero-buttons{
+  margin-top:30px;
+}
+
+.btn{
+  display:inline-block;
+  padding:13px 25px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+  margin:6px;
+  cursor:pointer;
+  border:none;
+}
+
+.btn-primary{
+  background:#092c61;
+  color:white;
+}
+
+.btn-green{
+  background:#16a34a;
+  color:white;
+}
+
+.section{
+  padding:65px 6%;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.section-title h2{
+  font-size:32px;
+  color:#092c61;
+}
+
+.section-title p{
+  color:#687386;
+  margin-top:8px;
+}
+
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+}
+
+.service-card{
+  background:white;
+  padding:28px 22px;
+  border-radius:16px;
+  box-shadow:0 8px 25px rgba(20,50,90,.08);
+  border:1px solid #e5edf5;
+  text-align:center;
+  transition:.25s;
+}
+
+.service-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 14px 35px rgba(20,50,90,.14);
+}
+
+.service-icon{
+  width:70px;
+  height:70px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  background:#eef6ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:34px;
+}
+
+.service-card h3{
+  color:#092c61;
+  margin-bottom:8px;
+}
+
+.price{
+  color:#16a34a;
+  font-size:22px;
+  font-weight:bold;
+  margin:12px 0;
+}
+
+.service-card button{
+  background:#092c61;
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.workflow{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.step{
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 7px 22px rgba(0,0,0,.06);
+}
+
+.step-number{
+  width:45px;
+  height:45px;
+  background:#092c61;
+  color:white;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 12px;
+  font-weight:bold;
+}
+
+.form-box{
+  max-width:750px;
+  margin:auto;
+  background:white;
+  padding:35px;
+  border-radius:18px;
+  box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+.form-box h2{
+  text-align:center;
+  color:#092c61;
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  margin:15px 0 7px;
+  font-weight:bold;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #d3dce8;
+  border-radius:8px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.amount{
+  text-align:center;
+  font-size:30px;
+  color:#16a34a;
+  font-weight:bold;
+  margin:25px 0;
+}
+
+#documentBox,
+#paymentBox{
+  display:none;
+  margin-top:25px;
+  padding:25px;
+  border-radius:12px;
+  background:#f5f9ff;
+  border:1px solid #dce9f7;
+}
+
+.notice{
+  background:#fff7df;
+  border-left:5px solid #f59e0b;
+  padding:15px;
+  margin-top:15px;
+  border-radius:6px;
+}
+
+.track-box{
+  max-width:650px;
+  margin:auto;
+  background:white;
+  padding:35px;
+  border-radius:18px;
+  box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+.status{
+  margin-top:20px;
+  padding:18px;
+  background:#effaf3;
+  border-left:5px solid #16a34a;
+  border-radius:8px;
+}
+
+.contact{
+  text-align:center;
+  background:#092c61;
+  color:white;
+  padding:55px 20px;
+}
+
+.contact h2{
+  margin-bottom:12px;
+}
+
+footer{
+  text-align:center;
+  padding:22px;
+  background:#061d3e;
+  color:white;
+}
+
+.float-buttons{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.float-buttons a{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  text-decoration:none;
+  font-size:24px;
+  box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.whatsapp{
+  background:#25D366;
+}
+
+.call{
+  background:#2563eb;
+}
+
+.hidden{
+  display:none;
+}
+
+@media(max-width:700px){
+  header{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  nav a{
+    margin:0 6px;
+    font-size:14px;
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+
+  .form-box{
+    padding:22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">YESG <span>Assignment</span></div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#tracking">Track</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+
+<!-- HOME -->
+
+<section class="hero" id="home">
+
+  <h1>Business & Online Services</h1>
+
+  <p>
+    आपकी जरूरत के अनुसार सही service चुनिए।
+    पहले service और documents की जानकारी देखिए,
+    documents upload करने के बाद ही payment option दिखाई देगा।
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#services" class="btn btn-primary">View All Services</a>
+    <a href="#tracking" class="btn btn-green">Track Application</a>
+  </div>
+
+</section>
+
+
+<!-- SERVICES -->
+
+<section class="section" id="services">
+
+  <div class="section-title">
+    <h2>हमारी Services</h2>
+    <p>अपनी आवश्यकता के अनुसार service चुनिए</p>
+  </div>
+
+  <div class="services">
+
+    <div class="service-card">
+      <div class="service-icon">🧾</div>
+      <h3>GST Registration</h3>
+      <p>नए business के लिए GST Registration service.</p>
+      <div class="price">₹999/-</div>
+      <button onclick="selectService('GST Registration',999)">
+        Select Service
+      </button>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🔐</div>
+      <h3>DSC</h3>
+      <p>Digital Signature Certificate related service.</p>
+      <div class="price">₹1,499/-</div>
+      <button onclick="selectService('DSC',1499)">
+        Select Service
+      </button>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <h3>PVT LTD Registration</h3>
+      <p>Private Limited Company Registration assistance.</p>
+      <div class="price">Contact Us</div>
+      <button onclick="selectService('PVT LTD Registration',0)">
+        Select Service
+      </button>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🏛️</div>
+      <h3>Company Registration</h3>
+      <p>Company formation और registration assistance.</p>
+      <div class="price">Contact Us</div>
+      <button onclick="selectService('Company Registration',0)">
+        Select Service
+      </button>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Compliance Services</h3>
+      <p>Business compliance और regular filing assistance.</p>
+      <div class="price">Contact Us</div>
+      <button onclick="selectService('Compliance Services',0)">
+        Select Service
+      </button>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">📑</div>
+      <h3>Other Business Services</h3>
+      <p>अन्य business और online services के लिए संपर्क करें.</p>
+      <div class="price">Contact Us</div>
+      <button onclick="selectService('Other Business Services',0)">
+        Select Service
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>कैसे काम करेगा?</h2>
+    <p>Simple और transparent process</p>
+  </div>
+
+  <div class="workflow">
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3>Service Select</h3>
+      <p>Customer अपनी required service चुनेगा.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3>Details</h3>
+      <p>Customer अपनी basic details भरेगा.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3>Documents</h3>
+      <p>Required documents upload किए जाएंगे.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <h3>Payment</h3>
+      <p>Documents के बाद payment option आएगा.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <h3>Tracking</h3>
+      <p>Application का status check किया जा सकेगा.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- APPLICATION FORM -->
+
+<section class="section" id="apply">
+
+  <div class="form-box">
+
+    <h2>Service Application</h2>
+
+    <label>Selected Service</label>
+    <input id="service" readonly placeholder="ऊपर से service select करें">
+
+    <label>Customer Name</label>
+    <input id="name" placeholder="अपना नाम लिखिए">
+
+    <label>Email</label>
+    <input id="email" type="email" placeholder="Email address">
+
+    <label>Mobile Number</label>
+    <input id="mobile" type="tel" placeholder="Mobile number">
+
+    <label>Additional Information</label>
+    <textarea id="message" placeholder="यदि कोई विशेष जानकारी हो तो लिखिए"></textarea>
+
+    <div id="documentBox">
+
+      <h3>📄 Required Documents</h3>
+
+      <p style="margin-top:8px;">
+        कृपया अपनी service के अनुसार required documents upload करें।
+      </p>
+
+      <label>Upload Documents</label>
+
+      <input
+        type="file"
+        id="documents"
+        multiple
+        accept=".pdf,.jpg,.jpeg,.png"
+      >
+
+      <div class="notice">
+        Documents upload करने के बाद ही payment option उपलब्ध होगा।
+      </div>
+
+      <button
+        class="btn btn-primary"
+        style="margin-top:20px;"
+        onclick="showPayment()">
+        Documents Upload Complete
+      </button>
+
+    </div>
+
+
+    <div id="paymentBox">
+
+      <h3>💳 Payment</h3>
+
+      <p style="margin-top:8px;">
+        आपकी selected service:
+        <strong id="paymentService"></strong>
+      </p>
+
+      <div class="amount" id="paymentAmount">₹0</div>
+
+      <button
+        class="btn btn-green"
+        style="width:100%;"
+        onclick="startPayment()">
+        Proceed to Payment
+      </button>
+
+      <div class="notice">
+        Payment gateway को बाद में Razorpay/other gateway से connect किया जा सकता है।
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TRACKING -->
+
+<section class="section" id="tracking">
+
+  <div class="section-title">
+    <h2>🔎 Application Tracking</h2>
+    <p>अपने application का status check करें</p>
+  </div>
+
+  <div class="track-box">
+
+    <label>Application / Reference Number</label>
+
+    <input
+      id="trackingNumber"
+      placeholder="जैसे YESG10001">
+
+    <button
+      class="btn btn-primary"
+      style="width:100%;margin-top:18px;"
+      onclick="trackApplication()">
+      Check Status
+    </button>
+
+    <div id="trackingResult"></div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+  <h2>Need Help?</h2>
+
+  <p>
+    किसी service या application के बारे में जानकारी के लिए हमसे संपर्क करें।
+  </p>
+
+  <div style="margin-top:20px;">
+
+    <a
+      href="#"
+      onclick="openWhatsApp();return false;"
+      class="btn btn-green">
+      WhatsApp
+    </a>
+
+    <a
+      href="#"
+      onclick="makeCall();return false;"
+      class="btn btn-primary">
+      Call Us
+    </a>
+
+  </div>
+
+</section>
+
+
+<footer>
+  © 2026 YESG Assignment. All Rights Reserved.
+</footer>
+
+
+<!-- FLOATING BUTTONS -->
+
+<div class="float-buttons">
+
+  <a
+    href="#"
+    class="whatsapp"
+    onclick="openWhatsApp();return false;"
+    title="WhatsApp">
+    W
+  </a>
+
+  <a
+    href="#"
+    class="call"
+    onclick="makeCall();return false;"
+    title="Call">
+    ☎
+  </a>
+
+</div>
+
+
+<script>
+
+let selectedService = "";
+let selectedAmount = 0;
+
+
+/* SERVICE SELECT */
+
+function selectService(service, amount){
+
+  selectedService = service;
+  selectedAmount = amount;
+
+  document.getElementById("service").value = service;
+
+  document.getElementById("documentBox").style.display = "block";
+
+  document.getElementById("paymentBox").style.display = "none";
+
+  document.getElementById("paymentService").textContent = service;
+
+  document.getElementById("paymentAmount").textContent =
+    amount > 0 ? "₹" + amount.toLocaleString("en-IN") : "Contact Us";
+
+  document.getElementById("apply").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+
+/* DOCUMENT UPLOAD KE BAAD PAYMENT */
+
+function showPayment(){
+
+  const name = document.getElementById("name").value.trim();
+  const mobile = document.getElementById("mobile").value.trim();
+  const files = document.getElementById("documents").files;
+
+  if(!selectedService){
+    alert("कृपया पहले service select करें।");
+    return;
+  }
+
+  if(!name){
+    alert("कृपया अपना नाम भरें।");
+    return;
+  }
+
+  if(!mobile){
+    alert("कृपया mobile number भरें।");
+    return;
+  }
+
+  if(files.length === 0){
+    alert("कृपया required documents upload करें।");
+    return;
+  }
+
+  document.getElementById("paymentBox").style.display = "block";
+
+  document.getElementById("paymentBox").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+
+/* PAYMENT */
+
+function startPayment(){
+
+  if(selectedAmount <= 0){
+
+    alert(
+      "इस service की final fee के लिए कृपया YESG Assignment से contact करें।"
+    );
+
+    return;
+  }
+
+  alert(
+    "Payment Gateway जल्द connect किया जाएगा।\n\n" +
+    selectedService +
+    "\nAmount: ₹" +
+    selectedAmount.toLocaleString("en-IN")
+  );
+}
+
+
+/* APPLICATION TRACKING */
+
+function trackApplication(){
+
+  const number =
+    document.getElementById("trackingNumber").value.trim();
+
+  const result =
+    document.getElementById("trackingResult");
+
+  if(!number){
+
+    result.innerHTML =
+      '<div class="status">कृपया Application Number डालें।</div>';
+
+    return;
+  }
+
+  result.innerHTML =
+    '<div class="status">' +
+    '<strong>Application Found</strong><br><br>' +
+    'Application No.: ' + number +
+    '<br>Status: <strong>Under Process</strong>' +
+    '<br><br>Detailed tracking system backend से connect किया जाएगा।' +
+    '</div>';
+}
+
+
+/* WHATSAPP */
+
+function openWhatsApp(){
+
+  /*
+    यहाँ अपना WhatsApp number डालना है।
+    Example:
+    919876543210
+  */
+
+  const number = "YOUR_WHATSAPP_NUMBER";
+
+  if(number === "YOUR_WHATSAPP_NUMBER"){
+
+    alert(
+      "WhatsApp number अभी website में add नहीं किया गया है।"
+    );
+
+    return;
+  }
+
+  window.open(
+    "https://wa.me/" + number,
+    "_blank"
+  );
+}
+
+
+/* CALL */
+
+function makeCall(){
+
+  /*
+    यहाँ अपना business mobile number डालना है.
+  */
+
+  const number = "YOUR_PHONE_NUMBER";
+
+  if(number === "YOUR_PHONE_NUMBER"){
+
+    alert(
+      "Business phone number अभी website में add नहीं किया गया है।"
+    );
+
+    return;
+  }
+
+  window.location.href = "tel:" + number;
+}
+
+</script>
+
+</body>
+</html>
